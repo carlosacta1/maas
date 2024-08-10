@@ -27,12 +27,25 @@
     employee_id.value = 0
   }
 
+  onMounted(async() => {
+    const response = await fetch(API_URL)
+    employees.value = await response.json()
+  })
+
   const updateEmployee = async() => {
     console.log('Update employee')
   }
 
   const cancelEdit = () => {
     console.log('Cancel edit')
+  }
+
+  const deleteEmployee = async(id) => {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: 'DELETE'
+    })
+
+    employees.value = employees.value.filter(employee => employee.id !== id)
   }
 </script>
 
@@ -47,6 +60,13 @@
 
     <!-- Only render if not editing post -->
     <button v-else @click="createEmployee">Create</button>
+
+    <!-- Render all employees -->
+    <div v-for="employee in employees" :key="employee.id">
+      <p>{{ employee.name }}</p>
+      <button @click="editEmployee(employee.id)">Edit</button>
+      <button @click="deleteEmployee(employee.id)">Delete</button>
+    </div>
   </div>
 </template>
 
