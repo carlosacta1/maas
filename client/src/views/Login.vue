@@ -7,6 +7,18 @@
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form @submit.prevent="login" class="space-y-6">
+        <div class="rounded-md bg-red-50 p-4" v-if="error">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-red-800">{{ error }}</h3>
+            </div>
+          </div>
+        </div>
         <div>
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
           <div class="mt-2">
@@ -35,36 +47,35 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
+import { ref, onBeforeMount } from 'vue'
+import { useRouter } from 'vue-router'
+import { plainAxiosInstance } from '../axios.js'
 
-  const API_URL = 'http://localhost:3000/users/sign_in'
+const email = ref('')
+const password = ref('')
+const error = ref('')
 
-  const email = ref('')
-  const password = ref('')
+const router = useRouter()
 
-  const router = useRouter()
+onBeforeMount(async () => {
+  try {
+    await plainAxiosInstance.get('/verify-token')
+    router.push('/services')
+  } catch (error) {
+  }
+})
 
-  const login = async () => {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        user: {
-          email: email.value,
-          password: password.value
-        }
-      })
+const login = async () => {
+  try {
+    const response = await plainAxiosInstance.post('/login', {
+      email: email.value, 
+      password: password.value
     })
 
-    const data = await response.json()
-
-    if (data.error) {
-      alert(data.error)
-    } else {
-      router.push('/users')
-    }
+    localStorage.setItem('token', response.data.token)
+    router.push('/services')
+  } catch (err) {
+    error.value = err.response?.data?.message || 'An error occurred during login'
   }
+}
 </script>

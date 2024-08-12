@@ -1,0 +1,16 @@
+# == Schema Information
+#
+# Table name: services
+#
+#  id          :bigint           not null, primary key
+#  description :text             default(""), not null
+#  name        :string           default(""), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+one:
+  name: MyString
+
+two:
+  name: MyString

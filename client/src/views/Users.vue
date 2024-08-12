@@ -12,7 +12,7 @@
 
     <!-- Render all users -->
     <div v-for="user in users" :key="user.id">
-      <p>{{ user.name }}</p>
+      <p>{{ user.first_name }}</p>
       <button @click="editUser(user.id)">Edit</button>
       <button @click="deleteUser(user.id)">Delete</button>
     </div>
@@ -20,14 +20,15 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, onBeforeMount } from 'vue'
+  import { plainAxiosInstance } from '../axios.js'
 
   const users = ref([])
 
   const name = ref('')
   const user_id = ref(0)
   const isEditing = ref(false)
-  const API_URL = 'http://localhost:3000/users'
+  const API_URL = 'http://localhost:3000/api/v1/users'
 
 
   const createUser = async() => {
@@ -49,7 +50,7 @@
   }
 
   onMounted(async() => {
-    const response = await fetch(API_URL)
+    const response = await plainAxiosInstance.get('/api/v1/users')
     users.value = await response.json()
   })
 
