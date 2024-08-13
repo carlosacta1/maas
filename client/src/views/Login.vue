@@ -47,32 +47,38 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { plainAxiosInstance } from '../axios.js'
+import axios from 'axios'
 
 const email = ref('')
 const password = ref('')
 const error = ref('')
 
+const API_URL = "http://localhost:3000"
+
 const router = useRouter()
 
-onBeforeMount(async () => {
-  try {
-    await plainAxiosInstance.get('/verify-token')
+onMounted(() => {
+  if (document.cookie.includes('_interslice_session')) {
     router.push('/services')
-  } catch (error) {
   }
 })
 
 const login = async () => {
   try {
-    const response = await plainAxiosInstance.post('/login', {
-      email: email.value, 
-      password: password.value
+    const response = await axios.post(`${API_URL}/users/sign_in`, { 
+      user: {
+        email: email.value,
+        password: password.value
+      }
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
     })
 
-    localStorage.setItem('token', response.data.token)
     router.push('/services')
   } catch (err) {
     error.value = err.response?.data?.message || 'An error occurred during login'

@@ -62,7 +62,7 @@
 
 <script setup>
   import { ref } from 'vue'
-  import { plainAxiosInstance } from '../axios.js'
+  import axiosSecureInstance from '../axios.js'
   import { useRouter } from 'vue-router'
 
   const router = useRouter()
@@ -72,7 +72,8 @@
   const logout = async () => {
 
     try {
-      const response = await plainAxiosInstance.delete('/logout')
+      
+      const response = await axiosSecureInstance.delete('/users/sign_out')
 
       if (response.status === 200) {
         router.push('/')

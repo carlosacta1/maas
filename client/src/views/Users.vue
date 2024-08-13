@@ -21,7 +21,7 @@
 
 <script setup>
   import { ref, onMounted, onBeforeMount } from 'vue'
-  import { plainAxiosInstance } from '../axios.js'
+  import axios from 'axios'
 
   const users = ref([])
 
@@ -50,7 +50,7 @@
   }
 
   onMounted(async() => {
-    const response = await plainAxiosInstance.get('/api/v1/users')
+    const response = await axios.get('/api/v1/users')
     users.value = await response.json()
   })
 
