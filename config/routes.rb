@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   root 'home#index'
+  # Session routes for Devise
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+
+  # API routes
   namespace :api do
     namespace :v1 do
       resources :service_user_monitors
@@ -7,12 +13,4 @@ Rails.application.routes.draw do
       resources :users
     end
   end
-
-  # Session routes
-  post 'login', to: 'sessions#create'
-  put 'refresh', to: 'sessions#update'
-  delete 'logout', to: 'sessions#destroy'
-
-  # Auth routes
-  get 'verify-token', to: 'auth#verify_token'
 end

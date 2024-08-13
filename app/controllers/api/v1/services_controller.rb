@@ -1,6 +1,6 @@
 module Api::V1
   class ServicesController < ApplicationController
-    before_action :authorize_access_request!
+    before_action :authenticate_user!
     before_action :set_service, only: %i[ show update destroy ]
 
     # GET /services
@@ -48,7 +48,7 @@ module Api::V1
 
       # Only allow a list of trusted parameters through.
       def service_params
-        params.require(:service).permit(:name)
+        params.require(:service).permit(:name, :description)
       end
   end
 end

@@ -1,1 +1,1 @@
-JWTSessions.encryption_key = ENV['JWT_SECRET_KEY']
+# JWTSessions.encryption_key = ENV['JWT_SECRET_KEY']

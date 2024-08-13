@@ -1,6 +1,6 @@
 module Api::V1
   class UsersController < ApplicationController
-    before_action :authorize_access_request!
+    before_action :authenticate_user!
     before_action :set_user, only: %i[ show update destroy ]
 
     # GET /users

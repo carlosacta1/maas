@@ -40,7 +40,7 @@ gem "rack-cors"
 gem "dotenv-rails", require: "dotenv/load"
 
 # Use JWT for authentication
-gem 'jwt_sessions', '~> 2.6'
+gem 'devise-jwt'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
