@@ -49,131 +49,21 @@
     </div>
     <div class="my-3">
       <ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
-        <li class="overflow-hidden rounded-xl border border-gray-200">
+        <li v-for="(availabilities, day) in availabilities_by_day" :key="day" class="overflow-hidden rounded-xl border border-gray-200">
           <div class="flex items-center justify-center border-b border-gray-900/5 bg-gray-50 p-6">
-            <p class="text-sm font-medium leading-6 text-gray-900">Lunes</p>
+            <p class="text-sm font-medium leading-6 text-gray-900">{{ day }}</p>
           </div>
-          <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Last invoice</dt>
-              <dd class="text-gray-700"><time datetime="2022-12-13">December 13, 2022</time></dd>
+          <dl v-if="availabilities.length > 0" class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+            <div v-for="availability in availabilities" :key="availability.id" class="flex justify-between gap-x-4 py-3">
+              <dt class="text-gray-500">Hora de Inicio</dt>
+              <dd class="text-gray-700"><time :datetime="availability.start_time">{{ availability.start_time }}</time></dd>
             </div>
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Amount</dt>
-              <dd class="flex items-start gap-x-2">
-                <div class="font-medium text-gray-900">$2,000.00</div>
-                <div class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Overdue</div>
-              </dd>
+            <div v-for="availability in availabilities" :key="availability.id" class="flex justify-between gap-x-4 py-3">
+              <dt class="text-gray-500">Hora de Fin</dt>
+              <dd class="text-gray-700"><time :datetime="availability.end_time">{{ availability.end_time }}</time></dd>
             </div>
           </dl>
-        </li>
-        <li class="overflow-hidden rounded-xl border border-gray-200">
-          <div class="flex items-center justify-center border-b border-gray-900/5 bg-gray-50 p-6">
-            <p class="text-sm font-medium leading-6 text-gray-900">Martes</p>
-          </div>
-          <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Last invoice</dt>
-              <dd class="text-gray-700"><time datetime="2022-12-13">December 13, 2022</time></dd>
-            </div>
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Amount</dt>
-              <dd class="flex items-start gap-x-2">
-                <div class="font-medium text-gray-900">$2,000.00</div>
-                <div class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Overdue</div>
-              </dd>
-            </div>
-          </dl>
-        </li>
-        <li class="overflow-hidden rounded-xl border border-gray-200">
-          <div class="flex items-center justify-center border-b border-gray-900/5 bg-gray-50 p-6">
-            <p class="text-sm font-medium leading-6 text-gray-900">Miércoles</p>
-          </div>
-          <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Last invoice</dt>
-              <dd class="text-gray-700"><time datetime="2022-12-13">December 13, 2022</time></dd>
-            </div>
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Amount</dt>
-              <dd class="flex items-start gap-x-2">
-                <div class="font-medium text-gray-900">$2,000.00</div>
-                <div class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Overdue</div>
-              </dd>
-            </div>
-          </dl>
-        </li>
-        <li class="overflow-hidden rounded-xl border border-gray-200">
-          <div class="flex items-center justify-center border-b border-gray-900/5 bg-gray-50 p-6">
-            <p class="text-sm font-medium leading-6 text-gray-900">Jueves</p>
-          </div>
-          <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Last invoice</dt>
-              <dd class="text-gray-700"><time datetime="2022-12-13">December 13, 2022</time></dd>
-            </div>
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Amount</dt>
-              <dd class="flex items-start gap-x-2">
-                <div class="font-medium text-gray-900">$2,000.00</div>
-                <div class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Overdue</div>
-              </dd>
-            </div>
-          </dl>
-        </li>
-        <li class="overflow-hidden rounded-xl border border-gray-200">
-          <div class="flex items-center justify-center border-b border-gray-900/5 bg-gray-50 p-6">
-            <p class="text-sm font-medium leading-6 text-gray-900">Viernes</p>
-          </div>
-          <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Last invoice</dt>
-              <dd class="text-gray-700"><time datetime="2022-12-13">December 13, 2022</time></dd>
-            </div>
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Amount</dt>
-              <dd class="flex items-start gap-x-2">
-                <div class="font-medium text-gray-900">$2,000.00</div>
-                <div class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Overdue</div>
-              </dd>
-            </div>
-          </dl>
-        </li>
-        <li class="overflow-hidden rounded-xl border border-gray-200">
-          <div class="flex items-center justify-center border-b border-gray-900/5 bg-gray-50 p-6">
-            <p class="text-sm font-medium leading-6 text-gray-900">Sábado</p>
-          </div>
-          <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Last invoice</dt>
-              <dd class="text-gray-700"><time datetime="2022-12-13">December 13, 2022</time></dd>
-            </div>
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Amount</dt>
-              <dd class="flex items-start gap-x-2">
-                <div class="font-medium text-gray-900">$2,000.00</div>
-                <div class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Overdue</div>
-              </dd>
-            </div>
-          </dl>
-        </li>
-        <li class="overflow-hidden rounded-xl border border-gray-200">
-          <div class="flex items-center justify-center border-b border-gray-900/5 bg-gray-50 p-6">
-            <p class="text-sm font-medium leading-6 text-gray-900">Domingo</p>
-          </div>
-          <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Last invoice</dt>
-              <dd class="text-gray-700"><time datetime="2022-12-13">December 13, 2022</time></dd>
-            </div>
-            <div class="flex justify-between gap-x-4 py-3">
-              <dt class="text-gray-500">Amount</dt>
-              <dd class="flex items-start gap-x-2">
-                <div class="font-medium text-gray-900">$2,000.00</div>
-                <div class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Overdue</div>
-              </dd>
-            </div>
-          </dl>
+          <p v-else class="px-6 py-4 text-gray-500">No hay disponibilidades</p>
         </li>
       </ul>
     </div>
@@ -190,6 +80,15 @@ const router = useRouter()
 const user_id = ref(router.currentRoute.value.params.id)
 const user = ref({})
 const availabilities = ref([])
+const availabilities_by_day = ref({
+  Monday: [],
+  Tuesday: [],
+  Wednesday: [],
+  Thursday: [],
+  Friday: [],
+  Saturday: [],
+  Sunday: []
+});
 const weeks = ref([])
 const isCreatiningAvailability = ref(false)
 const start_time = ref('')
@@ -209,10 +108,21 @@ onMounted(() => {
 const checkAvailabilities = async (event) => {
   const date = event.target.value
   try {
-    const response = await axiosSecureInstance.get(`/api/v1/users/${user_id.value}/availabilities?date=${date}`)
-    availabilities.value = response.data
+    const response = await axiosSecureInstance.get(`/api/v1/users/${user_id.value}/availabilities?date=${date}`);
+    const data = response.data
+    const data_availabilities_by_day = data.availabilities_by_day
+
+    availabilities.value = data.availabilities
+
+    availabilities_by_day.value.Monday = data_availabilities_by_day.Monday || [];
+    availabilities_by_day.value.Tuesday = data_availabilities_by_day.Tuesday || [];
+    availabilities_by_day.value.Wednesday = data_availabilities_by_day.Wednesday || [];
+    availabilities_by_day.value.Thursday = data_availabilities_by_day.Thursday || [];
+    availabilities_by_day.value.Friday = data_availabilities_by_day.Friday || [];
+    availabilities_by_day.value.Saturday = data_availabilities_by_day.Saturday || [];
+    availabilities_by_day.value.Sunday = data_availabilities_by_day.Sunday || [];
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 

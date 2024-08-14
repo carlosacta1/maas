@@ -7,7 +7,11 @@ module Api::V1::Users
     def index
       date = params[:date] ? Date.parse(params[:date]) : Date.today
       @availabilities = @user.availabilities.by_week(date)
-      render json: @availabilities
+      @availabilities_by_day = @availabilities.group_by { |availability| availability.start_time.strftime("%A") }
+      render json: {
+        availabilities: @availabilities,
+        availabilities_by_day: @availabilities_by_day
+      }
     end
 
     def create
