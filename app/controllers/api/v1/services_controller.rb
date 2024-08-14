@@ -3,7 +3,7 @@ module Api::V1
     before_action :authenticate_user!
     before_action :set_service, only: %i[ show update destroy ]
 
-    # GET /services
+    # GET api/v1/services
     def index
       @services = Service.all
 
@@ -12,7 +12,11 @@ module Api::V1
 
     # GET api/v1/services/1
     def show
-      render json: @service
+      weeks = @service.generate_monitoring_weeks
+      render json: {
+        service: @service,
+        weeks: weeks
+      }
     end
 
     # POST api/v1/services
@@ -20,7 +24,7 @@ module Api::V1
       @service = Service.new(service_params)
 
       if @service.save
-        render json: @service, status: :created, location: @service
+        render json: @service, status: :created
       else
         render json: @service.errors, status: :unprocessable_entity
       end

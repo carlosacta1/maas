@@ -3,19 +3,23 @@ module Api::V1
     before_action :authenticate_user!
     before_action :set_user, only: %i[ show update destroy ]
 
-    # GET /users
+    # GET api/v1/users
     def index
       @users = User.all
   
       render json: @users
     end
   
-    # GET /users/1
+    # GET api/v1/users/1
     def show
-      render json: @users
+      weeks = @user.generate_availability_weeks
+      render json: {
+        user: @user,
+        weeks: weeks
+      }
     end
   
-    # POST /users
+    # POST api/v1/users
     def create
       @users = User.new(users_params)
   
@@ -26,7 +30,7 @@ module Api::V1
       end
     end
   
-    # PATCH/PUT /users/1
+    # PATCH/PUT api/v1/users/1
     def update
       if @user.update(user_params)
         render json: @user
@@ -35,7 +39,7 @@ module Api::V1
       end
     end
   
-    # DELETE /users/1
+    # DELETE api/v1/users/1
     def destroy
       @user.destroy
     end

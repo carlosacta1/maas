@@ -10,9 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_12_230044) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_13_132111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "availabilities", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "start_time", null: false
+    t.datetime "end_time", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_availabilities_on_user_id"
+  end
+
+  create_table "monitoring_requests", force: :cascade do |t|
+    t.bigint "service_id", null: false
+    t.bigint "user_id"
+    t.datetime "start_time", null: false
+    t.datetime "end_time", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_id"], name: "index_monitoring_requests_on_service_id"
+    t.index ["user_id"], name: "index_monitoring_requests_on_user_id"
+  end
 
   create_table "services", force: :cascade do |t|
     t.string "name", default: "", null: false
@@ -37,4 +57,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_12_230044) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "availabilities", "users"
+  add_foreign_key "monitoring_requests", "services"
+  add_foreign_key "monitoring_requests", "users"
 end

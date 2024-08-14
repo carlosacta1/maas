@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: availabilities
+#
+#  id         :bigint           not null, primary key
+#  end_time   :datetime         not null
+#  start_time :datetime         not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :bigint           not null
+#
+# Indexes
+#
+#  index_availabilities_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
+
+one:
+  user: one
+  start_time: 2024-08-13 08:16:27
+  end_time: 2024-08-13 08:16:27
+
+two:
+  user: two
+  start_time: 2024-08-13 08:16:27
+  end_time: 2024-08-13 08:16:27

@@ -8,9 +8,16 @@ Rails.application.routes.draw do
   # API routes
   namespace :api do
     namespace :v1 do
-      resources :service_user_monitors
-      resources :services
-      resources :users
+      resources :services do
+        scope module: :services do
+          resources :monitoring_requests, only: %i[ index create ]
+        end
+      end
+      resources :users do 
+        scope module: :users do
+          resources :availabilities, only: %i[ index create ]
+        end
+      end
     end
   end
 end
