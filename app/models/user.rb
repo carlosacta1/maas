@@ -27,14 +27,18 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable,
           :jwt_authenticatable, jwt_revocation_strategy: self
+
+  before_save :sanitize_fields
+  after_create :set_availability
   
-  has_many :availabilities, dependent: :destroy
   has_many :monitoring_requests
   has_many :services, through: :monitoring_requests
+  has_many :availabilities
 
+  validates :first_name, :last_name, :email, presence: true
 
-  def generate_availability_weeks(future_weeks_count = 5)
-    past_weeks = availabilities.group_by { |mr| [mr.start_time.to_date.cweek, mr.start_time.year] }
+  def generate_monitoring_weeks(future_weeks_count = 5)
+    past_weeks = monitoring_requests.group_by { |mr| [mr.start_time.to_date.cweek, mr.start_time.year] }
     past_weeks = past_weeks.map do |(week_number, year), requests|
       {
         week: week_number,
@@ -64,5 +68,17 @@ class User < ApplicationRecord
 
   def jwt_payload
     super
+  end
+
+  private
+
+  def set_availability
+    Availability.create(user: self)
+  end
+
+  def sanitize_fields
+    self.first_name = first_name.titleize
+    self.last_name = last_name.titleize
+    self.email = email.strip.downcase
   end
 end

@@ -12,10 +12,12 @@ module Api::V1
   
     # GET api/v1/users/1
     def show
-      weeks = @user.generate_availability_weeks
+      weeks = @user.generate_monitoring_weeks
+      availabilities = @user.availabilities
       render json: {
         user: @user,
-        weeks: weeks
+        weeks:,
+        availabilities:
       }
     end
   

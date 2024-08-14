@@ -2,12 +2,15 @@
 #
 # Table name: availabilities
 #
-#  id         :bigint           not null, primary key
-#  end_time   :datetime         not null
-#  start_time :datetime         not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  id                      :bigint           not null, primary key
+#  end_day                 :string           default("Friday"), not null
+#  end_time                :time             default(Sat, 01 Jan 2000 17:00:00.000000000 UTC +00:00), not null
+#  start_day               :string           default("Monday"), not null
+#  start_time              :time             default(Sat, 01 Jan 2000 08:00:00.000000000 UTC +00:00), not null
+#  temporarily_unavailable :boolean          default(FALSE), not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  user_id                 :bigint           not null
 #
 # Indexes
 #
@@ -20,10 +23,16 @@
 
 one:
   user: one
-  start_time: 2024-08-13 08:16:27
-  end_time: 2024-08-13 08:16:27
+  start_day: MyString
+  end_day: MyString
+  start_time: 2024-08-14 16:42:06
+  end_time_time: MyString
+  temporarily_unavailable: false
 
 two:
   user: two
-  start_time: 2024-08-13 08:16:27
-  end_time: 2024-08-13 08:16:27
+  start_day: MyString
+  end_day: MyString
+  start_time: 2024-08-14 16:42:06
+  end_time_time: MyString
+  temporarily_unavailable: false

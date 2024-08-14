@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       end
       resources :users do 
         scope module: :users do
-          resources :availabilities, only: %i[ index create ]
+          resources :monitoring_requests, only: %i[ index ]
         end
       end
     end

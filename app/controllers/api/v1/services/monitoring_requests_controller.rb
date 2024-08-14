@@ -6,8 +6,12 @@ module Api::V1::Services
     # GET api/v1/services/:service_id/monitoring_requests
     def index
       date = params[:date] ? Date.parse(params[:date]) : Date.today
-      @monitoring_requests = @service.monitoring_requests.by_week(date)
-      render json: @monitoring_requests
+      @monitoring_requests = @service.monitoring_requests.by_week(date).order(:start_time)
+      @monitoring_requests_by_day = @monitoring_requests.group_by { |monitoring_request| monitoring_request.start_time.strftime("%A") }
+      render json: {
+        monitoring_requests: @monitoring_requests,
+        monitoring_requests_by_day: @monitoring_requests_by_day
+      }
     end
 
     def create
