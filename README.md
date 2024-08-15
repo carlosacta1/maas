@@ -1,15 +1,18 @@
 # Monitoring as a Service (MAAS)
 
-This is a Ruby on Rails application that serves as an API with a PostgreSQL database. The frontend is built using Vue.js and is located within the client directory of this repository.
+This is a Ruby on Rails application that serves as an API with a PostgreSQL database. The frontend is built using Vue.js and is located inside the client directory of this repository.
+
+The application makes use of the `devise-jwt` gem for login through tokens and cookies, additionally the dotenv gem is used to store the system environment variables.
 
 ## Overview
 Monitoring as a Service (MAAS) is designed to streamline the assignment of shifts to monitoring services. The application allows the creation of services, to which monitoring requests (monitoring_requests) are generated. These requests are then assigned to users through an algorithm that ensures shifts are evenly distributed, minimizing shift changes and balancing the number of hours assigned to each user.
 
 ## Features
 * Service Management: Create and manage services that require monitoring.
-* Monitoring Requests: Automatically generate monitoring requests for each service.
+* Monitoring Requests: Generate monitoring requests for each service.
 * User Assignment Algorithm: A sophisticated algorithm that assigns users to monitoring requests, minimizing shift changes and ensuring an equitable distribution of hours.
 * User Availability: Handle user availability dynamically to ensure that only available users are assigned to monitoring requests.
+* User management: Update and modify user attributes quickly and easily.
 
 # Getting Started
 * Prerequisites
@@ -40,14 +43,21 @@ Monitoring as a Service (MAAS) is designed to streamline the assignment of shift
     rails db:create
     rails db:migrate
     ```
-
-4. **Run the Rails server:**
+4. **setup de jwt env secret key**
+   4.1 Create a new folder inside the app called .env
+   4.2 Set a variable called `JWT_SECRET_KEY` the value should be a secure random long password, you cand create it using rails
+   
+    ```bash
+    rails secret
+    ```
+    4.3 Copy and paste the secret and asign it to the `JWT_SECRET_KEY` variable
+6. **Run the Rails server:**
 
     ```bash
     rails s
     ```
 
-5. **Run the frontend server:**
+7. **Run the frontend server:**
 
     ```bash
     npm run dev --prefix client
@@ -56,6 +66,7 @@ Monitoring as a Service (MAAS) is designed to streamline the assignment of shift
 
 * Navigate to http://localhost:3000 for the Rails API.
 * The Vue.js frontend is accessible at http://localhost:5173.
+* Sign in to start creating and updating the monitoring systems
 
 ## API Endpoints
 * Services:
