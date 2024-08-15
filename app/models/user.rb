@@ -31,7 +31,7 @@ class User < ApplicationRecord
   before_save :sanitize_fields
   after_create :set_availability
   
-  has_many :monitoring_requests
+  has_many :monitoring_requests, dependent: :nullify
   has_many :services, through: :monitoring_requests
   has_many :availabilities
 

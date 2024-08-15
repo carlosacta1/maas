@@ -61,7 +61,7 @@ Monitoring as a Service (MAAS) is designed to streamline the assignment of shift
 7. **Run the frontend server:**
 
     ```bash
-    npm run dev --prefix client
+    npm run dev --prefix client serve
     ```
 # Usage
 

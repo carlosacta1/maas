@@ -10,12 +10,20 @@ module MonitoringRequests
     end
 
     def perform
-      assign_users
+      begin
+        ActiveRecord::Base.transaction do
+          assign_users!
+        end
+      rescue => e
+        raise Error, e.message
+      else
+        true
+      end
     end
 
     private
 
-    def assign_users
+    def assign_users!
       grouped_requests = @monitoring_requests.group_by { |request| [request.service_id, request.start_time] }
 
       grouped_requests.each do |(service_id, date), requests|

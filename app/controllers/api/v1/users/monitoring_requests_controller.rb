@@ -6,11 +6,13 @@ module Api::V1::Users
     # GET api/v1/users/:user_id/monitoring_requests
     def index
       date = params[:date] ? Date.parse(params[:date]) : Date.today
-      @monitoring_requests = @user.monitoring_requests.by_week(date).order(:start_time)
-      @monitoring_requests_by_day = @monitoring_requests.group_by { |monitoring_request| monitoring_request.start_time.strftime("%A") }
+      monitoring_requests = @user.monitoring_requests.by_week(date).order(:start_time)
+      monitoring_requests_by_day = monitoring_requests.group_by { |monitoring_request| monitoring_request.start_time.strftime("%A") }
+      services = monitoring_requests.map { |monitoring_request| monitoring_request.service }
       render json: {
-        monitoring_requests: @monitoring_requests,
-        monitoring_requests_by_day: @monitoring_requests_by_day
+        monitoring_requests:,
+        monitoring_requests_by_day:,
+        services:
       }
     end
 

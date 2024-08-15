@@ -48,6 +48,12 @@
       </select>
     </div>
     <div v-if="selectedWeek" class="my-3">
+      <button @click="assignUsersToMonitoringRequests" type="button" class="my-3 gap-2 px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M7 2a2 2 0 0 0-2 2v1a1 1 0 0 0 0 2v1a1 1 0 0 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H7Zm3 8a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm-1 7a3 3 0 0 1 3-3h2a3 3 0 0 1 3 3 1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
+        </svg>
+        Generar asignaciones
+      </button>
       <ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
         <li v-for="(monitoring_requests, day) in monitoring_requests_by_day" :key="day" class="overflow-hidden rounded-xl border border-gray-200">
           <div class="flex items-center justify-center border-b border-gray-900/5 bg-gray-50 p-6">
@@ -58,6 +64,9 @@
               <dt class="text-gray-700"><time :datetime="monitoring_request.start_time">{{ formatTimeUTC(monitoring_request.start_time) }} - {{ formatTimeUTC(monitoring_request.end_time) }}</time></dt>
               <dt v-if="!monitoring_request.user_id" class="text-gray-500">
                 Sin asignar
+              </dt>
+              <dt v-else class="text-gray-500">
+                {{ users.find(user => user.id === monitoring_request.user_id).first_name }} {{ users.find(user => user.id === monitoring_request.user_id).last_name }}
               </dt>
             </div>
           </dl>
@@ -158,6 +167,16 @@ const createMonitoringRequest = async () => {
 
     checkMonitoringRequests()
   } catch (error) {
+    console.error(error)
+  }
+}
+
+const assignUsersToMonitoringRequests = async () => {
+  try {
+    const response = await axiosSecureInstance.put(`/api/v1/monitoring_requests/assign_users`)
+    checkMonitoringRequests()
+  } catch (error) {
+    router.push(`/services/${service_id.value}`)
     console.error(error)
   }
 }

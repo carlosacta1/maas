@@ -37,7 +37,7 @@
           <dl v-if="monitoring_requests.length > 0" class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
             <div v-for="monitoring_request in monitoring_requests" :key="monitoring_request.id" class="flex justify-between gap-x-4 py-3">
               <dt class="text-gray-700"><time :datetime="monitoring_request.start_time">{{ formatTimeUTC(monitoring_request.start_time) }} - {{ formatTimeUTC(monitoring_request.end_time) }}</time></dt>
-              <dt class="text-gray-500">Servicio xyz</dt>
+              <dt class="text-gray-500">{{ services.find(service => service.id === monitoring_request.service_id).name }}</dt>
             </div>
           </dl>
           <p v-else class="px-6 py-4 text-gray-500">No hay asignaciones</p>
@@ -70,6 +70,7 @@ const monitoring_requests_by_day = ref({
 })
 const weeks = ref([])
 const selectedWeek = ref('')
+const services = ref([])
 
 onMounted(() => {
   axiosSecureInstance.get(`/api/v1/users/${user_id.value}`)
@@ -92,6 +93,8 @@ const checkMonitoringRequests = async (event) => {
     const response = await axiosSecureInstance.get(`/api/v1/users/${user_id.value}/monitoring_requests?date=${date}`)
     const data = response.data
     const data_monitoring_requests_by_day = data.monitoring_requests_by_day
+    services.value = data.services
+
 
     monitoring_requests.value = data.monitoring_requests
 
