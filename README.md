@@ -57,7 +57,7 @@ Monitoring as a Service (MAAS) is designed to streamline the assignment of shift
 * Navigate to http://localhost:3000 for the Rails API.
 * The Vue.js frontend is accessible at http://localhost:5173.
 
-# API Endpoints
+## API Endpoints
 * Services:
 
   * GET /api/v1/services - List all services
@@ -91,3 +91,34 @@ The Vue.js frontend is located in the `client` directory and is structured as fo
 * Views: Application pages.
 * Store: Vuex store for state management.
 * Router: Vue Router for managing application routes.
+
+## Frontend Setup
+
+### Tailwind CSS Configuration
+
+Tailwind CSS has been installed and configured for the frontend. Here is the configuration used in `tailwind.config.js`:
+
+```javascript
+const defaultTheme = require('tailwindcss/defaultTheme');
+
+module.exports = {
+  content: [
+    './index.html',
+    './public/*.html',
+    './src/**/*.{vue,js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Gellix', ...defaultTheme.fontFamily.sans],
+        mono: ['Roboto Mono', ...defaultTheme.fontFamily.mono],
+      },
+    },
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/container-queries'),
+  ],
+}; 
