@@ -60,19 +60,28 @@ Monitoring as a Service (MAAS) is designed to streamline the assignment of shift
 # API Endpoints
 * Services:
 
-  * GET /services - List all services
-  * POST /services - Create a new service
-  * GET /services/:id - Retrieve a specific service
-    
-* Monitoring Requests:
+  * GET /api/v1/services - List all services
+  * POST /api/v1/services - Create a new service
+  * GET /api/v1/services/:id - Retrieve a specific service
+  * PUT /api/v1/services/:id - Update a specific service
+  * PATCH /api/v1/services/:id - Update a specific service
+  * DELETE /api/v1/services/:id - Delete a specific service
+ 
+  * Monitoring Requests
+      * GET /api/v1/services/:service_id/monitoring_requests - List monitoring requests of a specific service
+      * POST /api/v1/services/:service_id/monitoring_requests - Create a new monitoring request of a specific service
 
-  * GET /monitoring_requests - List all monitoring requests
-  * POST /monitoring_requests - Create a new monitoring request
-  * GET /monitoring_requests/:id - Retrieve a specific monitoring request
+* Users:
 
-* User Assignments:
-
-  * POST /assignments - Assign users to monitoring requests based on the algorithm
+  * GET /api/v1/users - List all services
+  * POST /api/v1/users - Create a new service
+  * GET /api/v1/users/:id - Retrieve a specific service
+  * PUT /api/v1/users/:id - Update a specific service
+  * PATCH /api/v1/users/:id - Update a specific service
+  * DELETE /api/v1/users/:id - Delete a specific service
+ 
+  * Monitoring Requests
+      * GET /api/v1/users/:service_id/monitoring_requests - List monitoring requests of a specific service
 
 # Frontend Structure
 
