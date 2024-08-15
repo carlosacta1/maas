@@ -28,7 +28,30 @@ class Availability < ApplicationRecord
   validate :end_day_after_or_equal_to_start_day
   validate :end_time_after_start_time
 
+  def overlaps?(datetime)
+    day_name = datetime.strftime('%A')
+    time = datetime.hour
+
+    if day_in_range?(day_name) && time_in_range?(time)
+      return true
+    else
+      return false
+    end
+  end
+
   private
+
+  def day_in_range?(day_name)
+    start_day_index = Date::DAYNAMES.index(start_day)
+    end_day_index = Date::DAYNAMES.index(end_day)
+    day_index = Date::DAYNAMES.index(day_name)
+
+    day_index >= start_day_index && day_index <= end_day_index
+  end
+
+  def time_in_range?(time)
+    time >= start_time.hour && time <= end_time.hour
+  end
 
   def end_day_after_or_equal_to_start_day
     return if start_day.blank? || end_day.blank?

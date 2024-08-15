@@ -37,6 +37,10 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, :email, presence: true
 
+  def any_monitoring_requests_at?(datetime)
+    monitoring_requests.any? { |mr| mr.start_time <= datetime && mr.end_time >= datetime }
+  end
+
   def generate_monitoring_weeks(future_weeks_count = 5)
     past_weeks = monitoring_requests.group_by { |mr| [mr.start_time.to_date.cweek, mr.start_time.year] }
     past_weeks = past_weeks.map do |(week_number, year), requests|

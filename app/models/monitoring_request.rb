@@ -26,7 +26,7 @@ class MonitoringRequest < ApplicationRecord
 
   validates :start_time, :end_time, presence: true
   validate :end_time_after_start_time
-  validate :cant_overlap
+  # validate :cant_overlap
 
   # Should return the monitoring requests of the week of the given date for the same year
   scope :by_week, ->(date) { where(start_time: date.beginning_of_week..date.end_of_week).where(start_time: date.beginning_of_year..date.end_of_year) }
