@@ -96,6 +96,10 @@ Monitoring as a Service (MAAS) is designed to streamline the assignment of shift
  
   * Monitoring Requests
       * GET /api/v1/users/:service_id/monitoring_requests - List monitoring requests of a specific service
+   
+# Backend Structure
+
+![Diagram](assets/diagram.png)
 
 # Frontend Structure
 
