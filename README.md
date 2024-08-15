@@ -41,7 +41,7 @@ Monitoring as a Service (MAAS) is designed to streamline the assignment of shift
 
     ```bash
     rails db:create
-    rails db:migrate
+    rails db:migrate db:seed
     ```
 4. **Setup de jwt env secret key**
    * Create a file called `.env` in the root path of the project
