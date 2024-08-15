@@ -43,14 +43,15 @@ Monitoring as a Service (MAAS) is designed to streamline the assignment of shift
     rails db:create
     rails db:migrate
     ```
-4. **setup de jwt env secret key**
-   4.1 Create a new folder inside the app called .env
-   4.2 Set a variable called `JWT_SECRET_KEY` the value should be a secure random long password, you cand create it using rails
-   
-    ```bash
+4. **Setup de jwt env secret key**
+   * Create a file called `.env` in the root path of the project
+   * Set a variable called `JWT_SECRET_KEY`, the value of the variable can be assigned using rails, then copy and paste the value and assign it to the variable
+
+     
+   ```bash
     rails secret
-    ```
-    4.3 Copy and paste the secret and asign it to the `JWT_SECRET_KEY` variable
+   ```
+   
 6. **Run the Rails server:**
 
     ```bash
