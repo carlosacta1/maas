@@ -17,3 +17,68 @@ Monitoring as a Service (MAAS) is designed to streamline the assignment of shift
 * Rails: Version 7.0.0 or later
 * PostgreSQL: Version 12 or later
 * Node.js: Version 14.0.0 or later (for the frontend)
+
+## Installation
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/carlosacta1/maas.git
+    cd maas
+    ```
+
+2. **Install dependencies:**
+
+    ```bash
+    bundle install
+    npm install --prefix client
+    ```
+
+3. **Set up the database:**
+
+    ```bash
+    rails db:create
+    rails db:migrate
+    ```
+
+4. **Run the Rails server:**
+
+    ```bash
+    rails s
+    ```
+
+5. **Run the frontend server:**
+
+    ```bash
+    npm run dev --prefix client
+    ```
+# Usage
+
+* Navigate to http://localhost:3000 for the Rails API.
+* The Vue.js frontend is accessible at http://localhost:5173.
+
+# API Endpoints
+* Services:
+
+  * GET /services - List all services
+  * POST /services - Create a new service
+  * GET /services/:id - Retrieve a specific service
+    
+* Monitoring Requests:
+
+  * GET /monitoring_requests - List all monitoring requests
+  * POST /monitoring_requests - Create a new monitoring request
+  * GET /monitoring_requests/:id - Retrieve a specific monitoring request
+
+* User Assignments:
+
+  * POST /assignments - Assign users to monitoring requests based on the algorithm
+
+# Frontend Structure
+
+The Vue.js frontend is located in the `client` directory and is structured as follows:
+
+* Components: Reusable Vue components.
+* Views: Application pages.
+* Store: Vuex store for state management.
+* Router: Vue Router for managing application routes.
