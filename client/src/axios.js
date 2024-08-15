@@ -8,7 +8,8 @@ const axiosSecureInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-  }
-});
+  },
+  expose: ['Authorization'],
+})
 
 export default axiosSecureInstance;
