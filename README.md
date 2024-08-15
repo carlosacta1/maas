@@ -68,6 +68,8 @@ Monitoring as a Service (MAAS) is designed to streamline the assignment of shift
 * Navigate to http://localhost:3000 for the Rails API.
 * The Vue.js frontend is accessible at http://localhost:5173.
 * Sign in to start creating and updating the monitoring systems
+  
+    * You can either create a new user using the rails console or use any of the users created on the seeds
 
 ## API Endpoints
 * Services:
